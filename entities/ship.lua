@@ -37,10 +37,13 @@ function ship:new(world, x, y, shipType)
   local body = love.physics.newBody(world, x, y, "dynamic")
   local shape = love.physics.newPolygonShape(config.shape)
   love.physics.newFixture(body, shape, 1)
-  body:setLinearDamping(0.5) -- Resistenza per realismo
-  body:setAngularDamping(2)
+  body:setLinearDamping(0.2) -- Resistenza per realismo
+  body:setAngularDamping(0.2) -- Resistenza per realismo
 
   local components = {
+    graphic = {
+      draw = config.draw
+    },
     controls = {
       thrust = config.thrust,
       lateral_thrust = config.lateral,

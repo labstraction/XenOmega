@@ -18,12 +18,14 @@ function ParticleSystem:update(dt, entityBody)
     elseif k == "right" then active = love.keyboard.isDown("d") end
 
     if active then
-      local x = body:getX() + math.cos(body:getAngle()) * p.offset.x
-      local y = body:getY() + math.sin(body:getAngle()) * p.offset.y
+      ox, oy = body:getWorldPoint(math.cos(body:getAngle()) * p.offset.x, math.sin(body:getAngle()) * p.offset.y)
+      local x = body:getX() + ox
+      local y = body:getY() + oy
       p.emitter:setPosition(x, y)
-      p.emitter:update(dt)
+      
       p.emitter:emit(10)
     end
+    p.emitter:update(dt)
   end
 end
 

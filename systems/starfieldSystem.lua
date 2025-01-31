@@ -3,13 +3,13 @@ local starfieldSystem = {}
 local function createStars(cx, cy)
     local layers = {
         {
-            count = 50, speed = 0.9, size = 1.5, color = { 0.8, 0.8, 0.8, 1 }
+            count = 50, speed = 1.5, size = 1.5, color = { 0.8, 0.8, 0.8, 1 }
         },
         {
-            count = 100, speed = 0.6, size = 0.1, color = { 0.6, 0.6, 0.6, 1 }
+            count = 100, speed = 1, size = 1, color = { 0.6, 0.6, 0.6, 1 }
         },
         {
-            count = 200, speed = 0.3, size = 0.5, color = { 0.4, 0.4, 0.4, 1 }
+            count = 200, speed = 0.5, size = 0.5, color = { 0.4, 0.4, 0.4, 1 }
         }
     }
 

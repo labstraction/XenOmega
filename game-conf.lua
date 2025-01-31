@@ -1,6 +1,6 @@
 local config = {
-  width = 480,
-  height = 270,
+  width = 1200,
+  height = 900,
   scaleX = 1,
   scaleY = 1
 }
