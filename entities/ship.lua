@@ -55,11 +55,12 @@ function ship:new(world, x, y, shipType)
       current = config.fuel or 1000,
       consumption = 0.2
     },
-    particles = {
-      main = { emitter = createThrusterParticles(), offset = {x = 0, y = 15} },
-      left = { emitter = createThrusterParticles(), offset = {x = -8, y = -5} },
-      right = { emitter = createThrusterParticles(), offset = {x = 8, y = -5} }
-    }
+    -- particles = {
+    --   main = { emitter = createThrusterParticles(), offset = {x = 0, y = 15} },
+    --   left = { emitter = createThrusterParticles(), offset = {x = -8, y = -5} },
+    --   right = { emitter = createThrusterParticles(), offset = {x = 8, y = -5} }
+    -- }
+    emitters = config.emitters
   }
 
   body:setUserData(entity:new(components))
