@@ -1,6 +1,6 @@
-local RenderSystem = {}
+local utils = require("libs.utils")
 
-local utils = require("utils")
+local RenderSystem = {}
 
 function RenderSystem:new()
   local system = {}

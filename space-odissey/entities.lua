@@ -1,4 +1,4 @@
-local controller = require('controller')
+local controller = require('ecs.components.controllerCmp')
 
 table.unpack = table.unpack or unpack
 

@@ -10,6 +10,7 @@ end
 
 function entity:addComponent(name, component)
   self.components[name] = component
+  return self
 end
 
 function entity:getComponent(name)

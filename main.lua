@@ -1,10 +1,10 @@
-local ship = require("entities.ship")
-local camera = require ("systems.cameraSystem")
-local physicsSystem = require("systems.physicsSystem")
-local renderSystem = require("systems.renderSystem")
-local particleSystem = require("systems.particleSystem")
-local starfieldSystem = require("systems.starfieldSystem")
-local utils = require("utils")
+local ship = require("ecs.entities.ship")
+local camera = require ("ecs.systems.cameraSystem")
+local physicsSystem = require("ecs.systems.physicsSystem")
+local renderSystem = require("ecs.systems.renderSystem")
+local particleSystem = require("ecs.systems.particleSystem")
+local starfieldSystem = require("ecs.systems.starfieldSystem")
+local utils = require("libs.utils")
 local systems
 local player
 local world
@@ -12,7 +12,7 @@ local world
 
 function love.load()
   world = love.physics.newWorld(0, 0, true)
-  love.physics.setMeter(32)
+  love.physics.setMeter(16)
 
   systems = {
     starfieldSystem:new(),
@@ -49,9 +49,3 @@ function love.draw()
   camera:clear()
 end
 
-function love.keypressed(key)
-  -- Cambio nave debug
-  if key == "1" then player = ship:new(world, camera.x, camera.y, 1) end
-  if key == "2" then player = ship:new(world, camera.x, camera.y, 2) end
-  if key == "3" then player = ship:new(world, camera.x, camera.y, 3) end
-end
