@@ -11,6 +11,7 @@ local world
 
 
 function love.load()
+
   world = love.physics.newWorld(0, 0, true)
   love.physics.setMeter(16)
 
@@ -40,6 +41,7 @@ function love.update(dt)
 end
 
 function love.draw()
+
   camera:apply()
   for _, system in ipairs(systems) do
     if system.draw then
@@ -47,5 +49,6 @@ function love.draw()
     end
   end
   camera:clear()
+  
 end
 

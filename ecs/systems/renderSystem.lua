@@ -15,7 +15,7 @@ function RenderSystem:draw(entityBody)
   local fixtures = body:getFixtures()
   local fixture = fixtures[1]
   if fixture then
-    love.graphics.setLineWidth(2)
+    love.graphics.setLineWidth(3)
     love.graphics.polygon("line", body:getWorldPoints(unpack(entity:getComponent('graphic').draw)))
   end
 end
