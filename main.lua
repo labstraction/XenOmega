@@ -2,7 +2,6 @@ local ship = require("ecs.entities.ship")
 local camera = require ("ecs.systems.cameraSystem")
 local physicsSystem = require("ecs.systems.physicsSystem")
 local renderSystem = require("ecs.systems.renderSystem")
-local particleSystem = require("ecs.systems.particleSystem")
 local starfieldSystem = require("ecs.systems.starfieldSystem")
 local utils = require("libs.utils")
 local systems
@@ -19,7 +18,6 @@ function love.load()
     starfieldSystem:new(),
     physicsSystem:new(world),
     renderSystem:new(),
-    --particleSystem:new()
   }
 
   camera = camera:new()
