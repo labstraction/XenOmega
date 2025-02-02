@@ -15,8 +15,8 @@ end
 function camera:update(dt)
   if self.target then
     local tx, ty = self.target:getX(), self.target:getY()
-    self.x = self.x + (tx - self.x) * self.smoothness
-    self.y = self.y + (ty - self.y) * self.smoothness
+    self.x = self.x + (tx - self.x)-- * self.smoothness
+    self.y = self.y + (ty - self.y)-- * self.smoothness
   end
 end
 

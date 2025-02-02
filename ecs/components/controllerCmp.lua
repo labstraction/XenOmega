@@ -1,3 +1,4 @@
+local utils = require "libs.utils"
 local controllerCmp = {}
 
 function controllerCmp.new(actions)
@@ -5,7 +6,6 @@ function controllerCmp.new(actions)
     keys = {},
     actions = actions or {}
   }
-
   setmetatable(newController, { __index = controllerCmp })
 
   function love.keypressed(key)
@@ -20,6 +20,7 @@ function controllerCmp.new(actions)
 end
 
 function controllerCmp:update(dt)
+  print('control update')
   for key, value in pairs(self.keys) do
     if value and self.actions[key] then
       self.actions[key](dt)

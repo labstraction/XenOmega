@@ -19,7 +19,7 @@ function love.load()
     starfieldSystem:new(),
     physicsSystem:new(world),
     renderSystem:new(),
-    particleSystem:new()
+    --particleSystem:new()
   }
 
   camera = camera:new()

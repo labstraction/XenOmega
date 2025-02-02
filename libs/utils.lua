@@ -5,20 +5,20 @@ local utils = {}
 utils.log = function(value, depth, key)
   local linePrefix = ""
   local spaces = ""
-  
+
   if key ~= nil then
     linePrefix = "["..key.."] = "
   end
-  
+
   if depth == nil then
     depth = 0
   else
     depth = depth + 1
     for i=1, depth do spaces = spaces .. "  " end
   end
-  
+
   if type(value) == 'table' then
-    mTable = getmetatable(value)
+    local mTable = getmetatable(value)
     if mTable == nil then
       print(spaces ..linePrefix.."(table) ")
     else
@@ -67,5 +67,45 @@ utils.pushRotateScale = function(x, y, r, sx, sy)
   love.graphics.scale(sx or 1, sy or sx or 1)
   love.graphics.translate(-x, -y)
 end
+
+utils.calculatePolygonArea = function(vertices)
+  local area = 0
+  for i = 1, #vertices, 2 do
+    local x1, y1 = vertices[i], vertices[i + 1]
+    local x2, y2 = vertices[(i + 2 - 1) % #vertices + 1], vertices[(i + 3 - 1) % #vertices + 1]
+    area = area + (x1 * y2 - x2 * y1)
+  end
+  return math.abs(area / 2)
+end
+
+utils.createPolygonShapes = function(vertices, body)
+  if #vertices > 3 then
+    local success, triangles = pcall(function ()
+      return love.math.triangulate(vertices)
+    end)
+    if success then
+      for _, triangle in ipairs(triangles) do
+        if utils.calculatePolygonArea(triangle) > 1 then
+          local shape = love.physics.newPolygonShape(triangle)
+          love.physics.newFixture(body, shape)
+        end
+      end
+    end
+  end
+end
+
+utils.hexToRGB =function(hex)
+  hex = hex:gsub("#", "")
+  local r = tonumber(hex:sub(1, 2), 16) / 255
+  local g = tonumber(hex:sub(3, 4), 16) / 255
+  local b = tonumber(hex:sub(5, 6), 16) / 255
+  return r, g, b
+end
+
+utils.clamp = function(val, lower, upper)
+  return math.max(lower, math.min(upper, val))
+end
+
+utils.unpack = table.unpack or unpack
 
 return utils

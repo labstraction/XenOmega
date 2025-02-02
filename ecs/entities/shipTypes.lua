@@ -5,9 +5,9 @@ return {
       emitters = {
         {event = 'thrust' ,x = -16, y = -24, angle = 0, speed = 0, rate = 0.1, life = 0.5, size = 2, color = {255, 255, 255}}
       },
-      thrust = 100000,
-      lateral = 8000,
-      brake = 4000,
+      thrust = 1000000,
+      lateral = 30000,
+      brake = 30000,
       torque = 100000,
       fuel = 800
     },

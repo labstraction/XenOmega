@@ -4,7 +4,7 @@ function ParticleSystem:new()
   local system = {}
   local img = love.image.newImageData(1, 1)
   img:setPixel(0, 0, 1, 1, 1, 1)
-  system.ps = love.graphics.newParticleSystem(love.graphics.newImage(img), 1364)
+  system.ps = love.graphics.newParticleSystem(love.graphics.newImage(img), 100)
   setmetatable(system, {__index = self})
   return system
 end
@@ -17,26 +17,22 @@ function ParticleSystem:update(dt, entityBody)
 
 
   for _, emitter in pairs(emitters) do
-    print("emitter", emitter.x, emitter.y)
       
+      -- self.ps:setPosition(body:getWorldPoint(emitter.x, 0))
+      -- self.ps:setEmissionRate( 100 )
+      -- self.ps:setParticleLifetime( 0.01, 0.05 )
+      -- self.ps:setDirection(body:getAngle() +3.14 )
+      -- self.ps:setSpread( 0)
+      -- self.ps:setSpeed( 10, 2000 )
+      -- self.ps:setRadialAcceleration( 0, 0 )
+      -- self.ps:setSizes(1, 3)
+      -- self.ps:setEmissionArea('uniform', 5, 5)
+      -- self.ps:setTangentialAcceleration( 0, 0 )
+      -- self.ps:setSpin( 0, 0, 0 )
+      -- self.ps:setColors( 255, 188, 0, 230, 145, 0, 62, 14 )
+      -- self.ps:emit(100)
 
-      
-      self.ps:setPosition(body:getWorldPoint(emitter.x, 0))
-      self.ps:setEmissionRate( 100 )
-      self.ps:setParticleLifetime( 0.01, 0.05 )
-      self.ps:setDirection(body:getAngle() +3.14 )
-      self.ps:setSpread( 0)
-      self.ps:setSpeed( 10, 2000 )
-      self.ps:setRadialAcceleration( 0, 0 )
-      self.ps:setSizes(1, 3)
-      self.ps:setAreaSpread('uniform', 5, 5)
-      self.ps:setTangentialAcceleration( 0, 0 )
-      self.ps:setSpin( 0, 0, 0 )
-      self.ps:setColors( 255, 188, 0, 230, 145, 0, 62, 14 )
-      print("emitter2", self.ps:getPosition())
-      self.ps:emit(100)
-
-      self.ps:update(dt)
+      -- self.ps:update(dt)
   end
   
   -- for k, p in pairs(particles) do

@@ -1,3 +1,4 @@
+local utils = require "libs.utils"
 local entity = {}
 
 function entity:new(components)
@@ -17,6 +18,13 @@ function entity:getComponent(name)
   return self.components[name]
 end
 
-return entity
+local entityType = {
+  BULLET = 1,
+  PLAYER = 2,
+  ASTEROID = 3,
+  POLIG = 4
+}
+
+return entity, entityType
 
 
