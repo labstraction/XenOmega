@@ -8,11 +8,14 @@ function RenderSystem:new()
   return system
 end
 
-function RenderSystem:draw(entityBody)
-  local entity = entityBody:getUserData()
-  if entity.draw then
-    entity.draw()
+function RenderSystem:draw(world)
+  for i, v in ipairs(world:getBodies()) do
+    local entity = v:getUserData()
+    if entity.draw then
+      entity.draw()
+    end
   end
+
 end
 
 return RenderSystem

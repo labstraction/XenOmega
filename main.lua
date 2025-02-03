@@ -24,18 +24,17 @@ function love.load()
   camera:setScale(0.5)
 
   player = ship:new(world, 400, 300, 1)
+
+  ship:new(world, 450, 350, 1)
 end
 
 function love.update(dt)
   world:update(dt)
   camera:setTarget(player)
   camera:update(dt)
-  
-  for _, system in ipairs(systems) do
-    if system.update then
-      system:update(dt, player)
-    end
-  end
+  systems[1]:update(dt, player)
+  systems[2]:update(dt, world)  
+
 end
 
 function love.draw()
@@ -43,7 +42,7 @@ function love.draw()
   camera:apply()
   for _, system in ipairs(systems) do
     if system.draw then
-      system:draw(player)
+      system:draw(world)
     end
   end
   camera:clear()

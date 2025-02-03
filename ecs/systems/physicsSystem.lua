@@ -8,12 +8,14 @@ function physicsSystem:new(world)
   return system
 end
 
-function physicsSystem:update(dt, entityBody)
-  local body = entityBody
-  local entity = body:getUserData()
 
+function physicsSystem:update(dt, world)
+  for i, v in ipairs(world:getBodies()) do
+    local body = v
+    local entity = body:getUserData()
+    entity.update(dt)
+  end
 
-  entity.update(dt)
   -- if love.keyboard.isDown("w") and fuel.current > 0 then
   --   print("Thrusting", utils.log(fuel)) 
   --   local fx = math.cos(angle) * controls.thrust * dt
