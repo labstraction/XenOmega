@@ -4,6 +4,7 @@ local particleCmp   = require("ecs.components.particleCmp")
 local utils         = require("libs.utils")
 local graphicCmp    = require("ecs.components.graphicCmp")
 local physicCmp     = require("ecs.components.physicCmp")
+local brainCmp      = require("ecs.components.brainCmp")
 
 local enemy = entity:new()
 
@@ -21,17 +22,66 @@ function enemy:new(world, x, y, shipType)
 
   local graphic = graphicCmp:new(config.graphic)
 
-  local strategies = {
-    function(dt, player)
-      local x, y = body:getPosition()
-      local px, py = player:getPosition()
-      local angle = math.atan2(py - y, px - x)
-      body:setAngle(angle)
-      body:applyForce(math.cos(angle) * 100, math.sin(angle) * 100)
-    end
+  local strategy = {
+    tactics = {
+      function(dt, player, world)
+        local nearest
+        local min = 100000
+        for i, v in ipairs(world:getBodies()) do
+          print("State 1", body:getUserData().components.id, v:getUserData().components.id)
+          if not (body:getUserData().components.id == v:getUserData().components.id) then
+
+          local x, y = body:getPosition()
+          local px, py = v:getPosition()
+            local d = math.sqrt((px - x)^2 + (py - y)^2)
+            print(d)
+            if d < min then
+              min = d
+              nearest = v
+            end
+          end
+        end
+        if min <= 300 then
+          return 2
+        end
+        local x, y = body:getPosition()
+        local px, py = player:getPosition()
+        local angle = math.atan2(py - y, px - x)
+        body:setAngle(angle +0.1)
+        body:applyForce(math.cos(angle) * config.thrust * dt, math.sin(angle) * config.thrust * dt)
+        particle.emitters.w.ps:emit(100)
+        return 1
+      end,
+      function(dt, player, world)
+        local nearest
+        local min = 100000
+        for i, v in ipairs(world:getBodies()) do
+          if not (body:getUserData().components.id == v:getUserData().components.id) then
+          local x, y = body:getPosition()
+          local px, py = v:getPosition()
+            local d = math.sqrt((px - x)^2 + (py - y)^2)
+            if d < min then
+              min = d
+              nearest = v
+            end
+          end
+        end
+        if min >= 300 then
+          return 1
+        end
+        print("State 2")
+        local x, y = body:getPosition()
+        local px, py = nearest:getPosition()
+        local angle = math.atan2(py - y, px - x)
+        body:setAngle(angle +0.1)
+        body:applyForce(math.cos(-angle) * config.thrust * dt, math.sin(-angle) * config.thrust * dt)
+        particle.emitters.w.ps:emit(100)
+        return 2
+      end
+    }
   }
 
-  local brain = new brainCmp:new(strategies)
+  local brain = brainCmp.new(strategy)
 
 
   local components = {
@@ -41,13 +91,17 @@ function enemy:new(world, x, y, shipType)
       current = config.fuel or 1000,
       consumption = 0.2
     },
-    particle = particle
+    particle = particle,
+    brain = brain,
+    id = utils.uuid()
   }
+
+  print("Enemy created", components.id)
 
   local entity = entity:new(components)
 
-  entity.update = function (dt)
-    entity.components.brain:update(dt)
+  entity.update = function (dt, player, world)
+    entity.components.brain:update(dt, player, world)
     entity.components.particle:updateAll(body,dt)
   end
 

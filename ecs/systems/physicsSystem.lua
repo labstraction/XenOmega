@@ -9,11 +9,11 @@ function physicsSystem:new(world)
 end
 
 
-function physicsSystem:update(dt, world)
+function physicsSystem:update(dt, world, player)
   for i, v in ipairs(world:getBodies()) do
     local body = v
     local entity = body:getUserData()
-    entity.update(dt)
+    entity.update(dt, player, world)
   end
 
   -- if love.keyboard.isDown("w") and fuel.current > 0 then

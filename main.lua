@@ -26,7 +26,11 @@ function love.load()
 
   player = ship:new(world, 400, 300, 1)
 
-  enemy = enemy:new(world, 200, 200, 2)
+  for i = 1, 10 do
+    local x = utils.random(0, 2000)
+    local y = utils.random(0, 2000)
+    enemy:new(world, x, y, 3)
+  end
 end
 
 function love.update(dt)
@@ -34,7 +38,7 @@ function love.update(dt)
   camera:setTarget(player)
   camera:update(dt)
   systems[1]:update(dt, player)
-  systems[2]:update(dt, world)  
+  systems[2]:update(dt, world, player)  
 
 end
 
