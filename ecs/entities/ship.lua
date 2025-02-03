@@ -4,6 +4,7 @@ local controllerCmp = require("ecs.components.controllerCmp")
 local particleCmp   = require("ecs.components.particleCmp")
 local utils         = require("libs.utils")
 local graphicCmp    = require("ecs.components.graphicCmp")
+local physicCmp     = require("ecs.components.physicCmp")
 
 local ship = entity:new()
 
@@ -11,12 +12,7 @@ function ship:new(world, x, y, shipType)
   
   local config = shipTypes[shipType or 1]
 
-  local body = love.physics.newBody(world, x, y, "dynamic")
-  local shape = love.physics.newPolygonShape(config.collider)
-  love.physics.newFixture(body, shape, 1)
-  body:setLinearDamping(0.2)
-  body:setAngularDamping(0.2)
-
+  local body = physicCmp.createBody(world, x, y, config.collider)
 
   local particle = particleCmp:new()
                               :addEmitter('w', -16, 0, math.pi)
@@ -28,31 +24,19 @@ function ship:new(world, x, y, shipType)
 
   local actions = {}
   actions.w = function(dt)
-    local angle = body:getAngle()
-    local fx = math.cos(angle) * config.thrust * dt
-    local fy = math.sin(angle) * config.thrust * dt
-    body:applyForce(fx, fy)
+    physicCmp.applyForce(body, config.thrust, 0,  dt)
     particle.emitters.w.ps:emit(100)
   end
   actions.s = function(dt)
-    local angle = body:getAngle() + math.pi
-    local fx = math.cos(angle) * config.brake * dt
-    local fy = math.sin(angle) * config.brake * dt
-    body:applyForce(fx, fy)
+    physicCmp.applyForce(body, config.brake, math.pi,  dt)
     particle.emitters.s.ps:emit(100)
   end
   actions.q = function(dt)
-    local angle = body:getAngle() - math.pi/2
-    local fx = math.cos(angle) * config.lateral * dt
-    local fy = math.sin(angle) * config.lateral * dt
-    body:applyForce(fx, fy)
+    physicCmp.applyForce(body, config.lateral, -math.pi/2,  dt)
     particle.emitters.q.ps:emit(100)
   end
   actions.e = function(dt)
-    local angle = body:getAngle() + math.pi/2
-    local fx = math.cos(angle) * config.lateral * dt
-    local fy = math.sin(angle) * config.lateral * dt
-    body:applyForce(fx, fy)
+    physicCmp.applyForce(body, config.lateral, math.pi/2,  dt)
     particle.emitters.e.ps:emit(100)
   end
   actions.a = function(dt)
