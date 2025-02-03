@@ -1,4 +1,5 @@
 local ship = require("ecs.entities.ship")
+local enemy = require("ecs.entities.enemy")
 local camera = require ("ecs.systems.cameraSystem")
 local physicsSystem = require("ecs.systems.physicsSystem")
 local renderSystem = require("ecs.systems.renderSystem")
@@ -25,7 +26,7 @@ function love.load()
 
   player = ship:new(world, 400, 300, 1)
 
-  ship:new(world, 450, 350, 1)
+  enemy = enemy:new(world, 200, 200, 2)
 end
 
 function love.update(dt)
