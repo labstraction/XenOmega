@@ -6,8 +6,10 @@ local scene = {}
 function scene:new()
   local newScene = {
     entities = {},
-    updateSistems = {},
-    drawSistems = {}
+    loadSystems = {},
+    updateSystems = {},
+    drawSystems = {},
+    world = love.physics.newWorld(0, 0, true)
   }
   setmetatable(newScene, {__index = self})
   return newScene
@@ -25,6 +27,10 @@ end
 
 function scene:addCamera(camera)
   self.camera = camera
+end
+
+function scene:addLoadSystem(system, priority)
+  self.loadSistems = utils.insert(self.loadSistems, system)
 end
 
 function scene:addUpdateSystem(system, priority)
