@@ -108,4 +108,16 @@ end
 
 utils.unpack = table.unpack or unpack
 
+utils.sort = function(t, comp)
+  local newTable = {utils.unpack(t)}
+  table.sort(newTable, comp)
+  return newTable
+end
+
+utils.insert = function(t, value)
+  local newTable = {utils.unpack(t)}
+  table.insert(newTable, value)
+  return newTable
+end
+
 return utils

@@ -5,8 +5,6 @@ local entities = require('entities')
 local player
 local world
 
-
-
 local function beginContact(a, b, coll)
   if a:getBody():getUserData().handleCollision then
     a:getBody():getUserData().handleCollision(b)
