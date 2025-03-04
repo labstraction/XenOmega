@@ -1,5 +1,5 @@
-local utils = require "libs.utils"
-local entity = require "eccis.entity"
+local utils = require"libs.utils"
+local entity = require"eccis.entity"
 
 local scene = {}
 
@@ -30,20 +30,20 @@ function scene:addCamera(camera)
 end
 
 function scene:addLoadSystem(system, priority)
-  self.loadSistems = utils.insert(self.loadSistems, system)
+  self.loadSystems = utils.insert(self.loadSystems, system)
 end
 
 function scene:addUpdateSystem(system, priority)
-  self.updateSistems = utils.insert(self.updateSistems, system)
+  self.updateSystems = utils.insert(self.updateSystems, system)
 end
 
 function scene:addDrawSystem(system, priority)
-  self.drawSistems = utils.insert(self.drawSistems, system)
+  self.drawSystems = utils.insert(self.drawSystems, system)
 end
 
 function scene:update(dt)
   for _, entity in ipairs(self.entities) do
-    for _, system in ipairs(entity.updateSistems) do
+    for _, system in ipairs(self.updateSystems) do
       system(dt, entity);
     end
   end
@@ -52,7 +52,9 @@ end
 function scene:draw()
   self.camera:apply()
   for _, entity in ipairs(self.entities) do
-    for _, system in ipairs(entity.drawSistems) do
+    for _, system in ipairs(self.drawSystems) do
+      utils.log('entity')
+      utils.log(entity)
       system(entity)
     end
   end

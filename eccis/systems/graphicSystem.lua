@@ -12,10 +12,11 @@ local graphSysBuilder = function ()
             return false;
         end
         local graphic = entity:get("graphic");
-        love.graphics.setColor(utils.hexToRGB(graphic.color))
-        love.graphics.setLineWidth(graphic.width)
-        drawMapper[graphic.type](graphic.mode, graphic.points)
-
+        for _, element in ipairs(graphic) do
+            love.graphics.setColor(utils.hexToRGB(element.color))
+            love.graphics.setLineWidth(element.width)
+            drawMapper[element.type](element.mode, element.points)
+        end
     end
     return graphicSystem
 end

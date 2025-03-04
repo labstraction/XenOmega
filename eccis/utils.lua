@@ -1,4 +1,3 @@
-
 local utils = {}
 
 
@@ -7,50 +6,51 @@ utils.log = function(value, depth, key)
   local spaces = ""
 
   if key ~= nil then
-    linePrefix = "["..key.."] = "
+    linePrefix = "[" .. key .. "] = "
   end
 
   if depth == nil then
     depth = 0
   else
     depth = depth + 1
-    for i=1, depth do spaces = spaces .. "  " end
+    for i = 1, depth do spaces = spaces .. "  " end
   end
 
   if type(value) == 'table' then
+    print(spaces .. linePrefix .. "(table) ")
     local mTable = getmetatable(value)
-    if mTable == nil then
-      print(spaces ..linePrefix.."(table) ")
-    else
-      print(spaces .."(metatable) ")
-        value = mTable
-    end		
+    if not(mTable == nil) then
+      print(spaces.. "  " .. "(metatable) ")
+      for tableKey, tableValue in pairs(mTable) do
+        utils.log(tableValue, depth + 1, tableKey)
+      end
+    end
     for tableKey, tableValue in pairs(value) do
       utils.log(tableValue, depth, tableKey)
     end
-  elseif type(value)	== 'function' or 
-      type(value)	== 'thread' or 
-      type(value)	== 'userdata' or
-      value		== nil
+  elseif type(value) == 'function' or
+      type(value) == 'thread' or
+      type(value) == 'userdata' or
+      value == nil
   then
-    print(spaces..tostring(value))
+    print(spaces .. linePrefix .. tostring(value))
   else
-    print(spaces..linePrefix.."("..type(value)..") "..tostring(value))
+    print(spaces .. linePrefix .. "(" .. type(value) .. ") " .. tostring(value))
   end
 end
 
 utils.uuid = function()
   local fn = function(x)
-      local r = math.random(16) - 1
-      r = (x == "x") and (r + 1) or (r % 4) + 9
-      return ("0123456789abcdef"):sub(r, r)
+    local r = math.random(16) - 1
+    r = (x == "x") and (r + 1) or (r % 4) + 9
+    return ("0123456789abcdef"):sub(r, r)
   end
   return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"):gsub("[xy]", fn))
 end
 
 utils.random = function(min, max)
   local min, max = min or 0, max or 1
-  return (min > max and (love.math.random()*(min - max) + max)) or (love.math.random()*(max - min) + min)
+  return (min > max and (love.math.random() * (min - max) + max)) or (love.math.random() * (max - min) + min)
 end
 
 utils.pushRotate = function(x, y, r)
@@ -80,7 +80,7 @@ end
 
 utils.createPolygonShapes = function(vertices, body)
   if #vertices > 3 then
-    local success, triangles = pcall(function ()
+    local success, triangles = pcall(function()
       return love.math.triangulate(vertices)
     end)
     if success then
@@ -94,7 +94,7 @@ utils.createPolygonShapes = function(vertices, body)
   end
 end
 
-utils.hexToRGB =function(hex)
+utils.hexToRGB = function(hex)
   hex = hex:gsub("#", "")
   local r = tonumber(hex:sub(1, 2), 16) / 255
   local g = tonumber(hex:sub(3, 4), 16) / 255
@@ -109,13 +109,13 @@ end
 utils.unpack = table.unpack or unpack
 
 utils.sort = function(t, comp)
-  local newTable = {utils.unpack(t)}
+  local newTable = { utils.unpack(t) }
   table.sort(newTable, comp)
   return newTable
 end
 
 utils.insert = function(t, value)
-  local newTable = {utils.unpack(t)}
+  local newTable = { utils.unpack(t) }
   table.insert(newTable, value)
   return newTable
 end
