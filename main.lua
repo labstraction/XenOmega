@@ -17,11 +17,9 @@ function love.load()
 end
 
 function love.update(dt)
-
-
+    scenes[currentScene]:update(dt)
 end
 
 function love.draw()
-
-  
+  scenes[currentScene]:draw()
 end
