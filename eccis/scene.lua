@@ -9,7 +9,6 @@ function scene:new()
     loadSystems = {},
     updateSystems = {},
     drawSystems = {},
-    world = love.physics.newWorld(0, 0, true)
   }
   setmetatable(newScene, {__index = self})
   return newScene
