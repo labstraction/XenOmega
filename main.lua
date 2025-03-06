@@ -2,18 +2,24 @@ local utils = require("eccis.utils")
 local scene = require("eccis.scene")
 local cameraBuilder = require("eccis.systems.cameraSystem")
 local graphicBuilder = require("eccis.systems.graphicSystem")
-local interceptor = require("eccis.componets.graphic.interceptor")
+local physicBuilder = require("eccis.systems.physicSystem")
+-- local controllerBuilder = require("eccis.systems.controllerSystem")
+local interceptor = require("eccis.componets.ships.interceptor")
 local scenes = {}
 local currentScene = 1
 
 function love.load()
     local firstScene = scene:new()
     local player = firstScene:newEntity()
-    player:add("graphic", interceptor)
-    local cameraSystem = cameraBuilder(player, 0.3, 0.1)
+    player:add("graphic", interceptor.draw)
+    player:add("collider", interceptor.collider)
+    player:add("position", { x = 0, y = 0, type = "dynamic" })
+    local cameraSystem = cameraBuilder(player, 0.5, 0.1)
     firstScene:addCameraSystem(cameraSystem)
     local graphicSystem = graphicBuilder()
     firstScene:addDrawSystem(graphicSystem)
+    local physicSystem = physicBuilder()
+    firstScene:addPhysicSystem(physicSystem)
     table.insert(scenes, firstScene)
 end
 

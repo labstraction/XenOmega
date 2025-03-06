@@ -1,4 +1,4 @@
-return {
+local draw = {
     {
         type = 'polygon',
         mode = 'line',
@@ -6,4 +6,12 @@ return {
         color = '#FFFFFF',
         width = 3
     }
+}
+
+local collider = { -16, -24, 40, -16, 40, 16, -16, 24 }
+
+
+return {
+    draw = draw,
+    collider = collider,
 }

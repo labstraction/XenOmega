@@ -19,14 +19,29 @@ local physicsSysBuilder = function()
 
   end
 
-  local world;
+  local world = love.physics.newWorld(0, 0, true);
   world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-  local update = function(dt, _ , world)
+  local update = function(dt)
     world:update(dt)
   end
 
-  return { update = update, load = load, world = world }
+  local createBody = function(entity)
+    if not entity.position then
+      return nil;
+    end
+    local body = love.physics.newBody(world, entity.position.x, entity.position.y, entity.position.type or "dynamic");
+    if not entity.collider then
+      return body;
+    end
+    local shape = love.physics.newPolygonShape(entity.collider)
+    love.physics.newFixture(body, shape, 1)
+    body:setLinearDamping(0.2)
+    body:setAngularDamping(0.2)
+    return body
+  end
+
+  return { update = update, createBody = createBody, world = world }
 end
 
 return physicsSysBuilder
