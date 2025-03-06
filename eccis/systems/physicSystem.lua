@@ -3,6 +3,11 @@ local utils = require "eccis.utils"
 
 local physicsSysBuilder = function()
 
+  local shapeMapper = {
+    polygon = function(points) love.physics.newPolygonShape(points) end,
+    circle = function(radius) love.physics.newCircleShape(radius) end,
+}
+
   local beginContact = function(a, b, coll)
 
   end

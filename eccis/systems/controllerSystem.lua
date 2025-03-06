@@ -1,4 +1,6 @@
 local utils = require "eccis.utils"
+local entity = require "eccis.entity"
+local ball = require "eccis.componets.weapon.ball"
 
 local controllerSysBuilder = function()
 
@@ -24,6 +26,13 @@ local controllerSysBuilder = function()
             local engine = entity:get("engine")
             entity.body:applyTorque(engine.torque * dt)
         end,
+        fire = function(entity, dt)
+            local bullet = entity:newEntity()
+            bullet:add("graphic", ball.draw)
+            bullet:add("position", { x = entity.body:getX(), y = entity.body:getY(), type = "dynamic" })
+            bullet:add("collider", ball.collider)
+
+        end
     }
 
     local update = function(dt, entity)

@@ -8,7 +8,10 @@ local draw = {
     }
 }
 
-local collider = { -16, -24, 40, -16, 40, 16, -16, 24 }
+local collider = {
+    type = 'polygon',
+    points ={ -16, -24, 40, -16, 40, 16, -16, 24 }
+}
 
 local engine = {
     mainThrust = 30000,
