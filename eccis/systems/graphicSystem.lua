@@ -15,7 +15,11 @@ local graphSysBuilder = function ()
         for _, element in ipairs(graphic) do
             love.graphics.setColor(utils.hexToRGB(element.color))
             love.graphics.setLineWidth(element.width)
-            drawMapper[element.type](element.mode, element.points)
+            local points = element.points
+            if entity.body then
+                points = utils.pack(entity.body:getWorldPoints(utils.unpack(points)))
+            end
+            drawMapper[element.type](element.mode, points)
         end
     end
     return graphicSystem

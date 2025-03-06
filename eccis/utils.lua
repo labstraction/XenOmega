@@ -107,6 +107,7 @@ utils.clamp = function(val, lower, upper)
 end
 
 utils.unpack = table.unpack or unpack
+utils.pack = table.pack or function(...) return { n = select("#", ...), ... } end
 
 utils.sort = function(t, comp)
   local newTable = { utils.unpack(t) }

@@ -7,16 +7,16 @@ local cameraSysBuilder = function(target, scale, smoothness)
         y = 0,
         scale = scale or 1,
         target = target,
-        smoothness = smoothness or 0.1
+        smoothness = smoothness or 0.01
     }
 
     local update = function(dt)
-        if not camera.target:has("position") then
+        if not camera.target.body then
             return false;
-        end 
-        local position = camera.target:get("position")
-        camera.x = camera.x + (position.x - camera.x) * camera.smoothness
-        camera.y = camera.y + (position.y - camera.y) * camera.smoothness
+        end
+        local x, y = camera.target.body:getPosition()
+        camera.x = camera.x + (x - camera.x) * camera.smoothness
+        camera.y = camera.y + (y - camera.y) * camera.smoothness
     end
 
     local apply = function()

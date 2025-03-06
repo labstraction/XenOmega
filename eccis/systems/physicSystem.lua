@@ -27,14 +27,18 @@ local physicsSysBuilder = function()
   end
 
   local createBody = function(entity)
-    if not entity.position then
+    utils.log("Creating body for entity")
+    utils.log(entity)
+    if not entity:has('position') then
       return nil;
     end
-    local body = love.physics.newBody(world, entity.position.x, entity.position.y, entity.position.type or "dynamic");
-    if not entity.collider then
+    local position = entity:get('position')
+    local body = love.physics.newBody(world, position.x, position.y, position.type);
+    if not entity:has('collider') then
       return body;
     end
-    local shape = love.physics.newPolygonShape(entity.collider)
+    local collider = entity:get('collider')
+    local shape = love.physics.newPolygonShape(collider)
     love.physics.newFixture(body, shape, 1)
     body:setLinearDamping(0.2)
     body:setAngularDamping(0.2)

@@ -32,12 +32,12 @@ function controllerCmp:removeAct(key)
   self.controlled[self.uuid].actions[key] = nil
 end
 
-function love.keypressed(key)
-  controllerCmp.keys[key] = true;
-end
+-- function love.keypressed(key)
+--   controllerCmp.keys[key] = true;
+-- end
 
-function love.keyreleased(key)
-  controllerCmp.keys[key] = nil;
-end
+-- function love.keyreleased(key)
+--   controllerCmp.keys[key] = nil;
+-- end
 
 return controllerCmp;

@@ -1,4 +1,4 @@
-local utils = require "libs.utils"
+local utils = require "eccis.utils"
 local entity = require "eccis.entity"
 
 local scene = {}
@@ -38,7 +38,9 @@ function scene:addPhysicSystem(physicSystem)
     self.physicSystem = physicSystem
     for _, entity in pairs(self.entities) do
         if not entity.body then
-            local body = self.physicSystem:createBody(entity)
+            utils.log("Creating body for entity")
+            local body = self.physicSystem.createBody(entity)
+            utils.log(body)
             if body then
                 entity.body = body
             end
