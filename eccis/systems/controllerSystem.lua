@@ -4,13 +4,26 @@ local controllerSysBuilder = function()
 
     local keys = {}
 
+    local applyForce = function(body, value, angle, dt)
+        local angle = body:getAngle() + angle
+        local fx = math.cos(angle) * value * dt
+        local fy = math.sin(angle) * value * dt
+        body:applyForce(fx, fy)
+    end
+
     local actions = {
-        up = function(entity, dt)
-            local angle = entity.body:getAngle()
-            local fx = math.cos(angle) * 100000 * dt
-            local fy = math.sin(angle) * 100000 * dt
-            entity.body:applyForce(fx, fy)
-        end
+        mainThrust = function(entity, dt)
+            local engine = entity:get("engine")
+            applyForce(entity.body, engine.mainThrust, 0,  dt)
+        end,
+        leftThrust = function(entity, dt)
+            local engine = entity:get("engine")
+            entity.body:applyTorque(-engine.torque * dt)
+        end,
+        rightThrust = function(entity, dt)
+            local engine = entity:get("engine")
+            entity.body:applyTorque(engine.torque * dt)
+        end,
     }
 
     local update = function(dt, entity)

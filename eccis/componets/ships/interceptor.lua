@@ -10,8 +10,15 @@ local draw = {
 
 local collider = { -16, -24, 40, -16, 40, 16, -16, 24 }
 
+local engine = {
+    mainThrust = 30000,
+    torque = 100000,
+    fuel = 800
+}
+
 
 return {
     draw = draw,
     collider = collider,
+    engine = engine
 }

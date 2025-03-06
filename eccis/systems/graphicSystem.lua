@@ -7,7 +7,7 @@ local graphSysBuilder = function ()
         polygon = function(mode, points) love.graphics.polygon(mode, points) end
     }
 
-    local graphicSystem = function (entity)
+    local draw = function (entity)
         if not entity:has("graphic") then
             return false;
         end
@@ -22,7 +22,7 @@ local graphSysBuilder = function ()
             drawMapper[element.type](element.mode, points)
         end
     end
-    return graphicSystem
+    return {draw = draw}
 end
 
 return graphSysBuilder

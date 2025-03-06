@@ -40,8 +40,8 @@ local physicsSysBuilder = function()
     local collider = entity:get('collider')
     local shape = love.physics.newPolygonShape(collider)
     love.physics.newFixture(body, shape, 1)
-    body:setLinearDamping(0.2)
-    body:setAngularDamping(0.2)
+    body:setLinearDamping(0.01)
+    body:setAngularDamping(0.01)
     return body
   end
 
