@@ -2,11 +2,10 @@ local utils = require "eccis.utils"
 
 
 local physicsSysBuilder = function()
-
   local shapeMapper = {
-    polygon = function(points) love.physics.newPolygonShape(points) end,
-    circle = function(radius) love.physics.newCircleShape(radius) end,
-}
+    polygon = function(points) return love.physics.newPolygonShape(points) end,
+    circle = function(radius) return love.physics.newCircleShape(radius) end
+  }
 
   local beginContact = function(a, b, coll)
 
@@ -32,8 +31,6 @@ local physicsSysBuilder = function()
   end
 
   local createBody = function(entity)
-    utils.log("Creating body for entity")
-    utils.log(entity)
     if not entity:has('position') then
       return nil;
     end
@@ -43,7 +40,7 @@ local physicsSysBuilder = function()
       return body;
     end
     local collider = entity:get('collider')
-    local shape = love.physics.newPolygonShape(collider)
+    local shape = shapeMapper[collider.type](collider.points);
     love.physics.newFixture(body, shape, 1)
     body:setLinearDamping(0.01)
     body:setAngularDamping(0.01)
@@ -78,8 +75,3 @@ return physicsSysBuilder
 --   local fy = math.sin(angle) * value * dt
 --   body:applyForce(fx, fy)
 -- end
-
-
-
-
-

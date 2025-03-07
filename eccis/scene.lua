@@ -38,9 +38,7 @@ function scene:addPhysicSystem(physicSystem)
     self.physicSystem = physicSystem
     for _, entity in pairs(self.entities) do
         if not entity.body then
-            utils.log("Creating body for entity")
             local body = self.physicSystem.createBody(entity)
-            utils.log(body)
             if body then
                 entity.body = body
             end

@@ -38,7 +38,6 @@ local controllerSysBuilder = function()
     local update = function(dt, entity)
 
         function love.keypressed(key)
-            utils.log(key)
             keys[key] = true;
         end
 
@@ -46,7 +45,6 @@ local controllerSysBuilder = function()
             keys[key] = nil;
         end
 
-        utils.log(keys)
 
         if not entity:has("controls") then
             return false;

@@ -12,7 +12,6 @@ local currentScene = 1
 function love.load()
     local firstScene = scene:new()
     local player = firstScene:newEntity()
-    utils.log(player)
     player:add("graphic", interceptor.draw)
     player:add("collider", interceptor.collider)
     player:add("position", { x = 0, y = 0, type = "dynamic" })
