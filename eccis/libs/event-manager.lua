@@ -24,6 +24,7 @@ function EventManagerBuilder()
     end
 
     local fire = function(eventType, data, publisher)
+        utils.log("fire", eventType, data)
         if subscribers[eventType] then
             for _, sub in ipairs(subscribers[eventType]) do
                 sub.callback(data, publisher)

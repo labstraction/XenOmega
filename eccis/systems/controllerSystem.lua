@@ -28,7 +28,6 @@ local controllerSysBuilder = function(eventManager)
         end,
         fire = function(entity, dt)
             local bullet = entity:new()
-            utils.log('stocazzo')
             bullet:add("graphic", ball.draw)
             bullet:add("position", { x = entity.body:getX(), y = entity.body:getY(), type = "dynamic" })
             bullet:add("collider", ball.collider)
