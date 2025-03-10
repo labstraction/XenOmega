@@ -121,4 +121,57 @@ utils.insert = function(t, value)
   return newTable
 end
 
+utils.filter = function(t, func)
+  local newTable = {}
+  for i, v in ipairs(t) do
+    if func(v, i, t) then
+      table.insert(newTable, v)
+    end
+  end
+  return newTable
+end
+
+utils.map = function(t, func)
+  local newTable = {}
+  for i, v in ipairs(t) do
+    table.insert(newTable, func(v, i, t))
+  end
+  return newTable
+end
+
+utils.reduce = function(t, func, initial)
+  local acc = initial or t[1]
+  for i, v in ipairs(t) do
+    acc = func(acc, v, i, t)
+  end
+  return acc
+end
+
+utils.find = function(t, func)
+  for i, v in ipairs(t) do
+    if func(v, i, t) then
+      return v
+    end
+  end
+  return nil
+end
+
+utils.some = function(t, func)
+  for i, v in ipairs(t) do
+    if func(v, i, t) then
+      return true
+    end
+  end
+  return false
+end
+
+utils.every = function(t, func)
+  for i, v in ipairs(t) do
+    if not func(v, i, t) then
+      return false
+    end
+  end
+  return true
+end
+
 return utils

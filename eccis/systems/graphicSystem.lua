@@ -1,4 +1,4 @@
-local utils = require "eccis.utils"
+local utils = require "eccis.libs.utils"
 
 
 local graphSysBuilder = function ()

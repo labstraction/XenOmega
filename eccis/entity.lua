@@ -1,4 +1,4 @@
-local utils = require "libs.utils"
+local utils = require "eccis.libs.utils"
 local entity = {}
 
 function entity:new(components)

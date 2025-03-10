@@ -1,5 +1,6 @@
-local utils = require "eccis.utils"
+local utils = require "eccis.libs.utils"
 local entity = require "eccis.entity"
+local eventManagerBuilder = require "eccis.eventManager"
 
 local scene = {}
 
@@ -76,6 +77,15 @@ function scene:draw()
         end
     end
     self.cameraSystem:clear()
+end
+
+
+function scene:addSubscription(sub, callback)
+    if not self.eventManager then
+        self.eventManager = eventManagerBuilder();
+    end
+    self.eventManager.subscribe(sub, callback)
+    return self.eventManager
 end
 
 return scene
