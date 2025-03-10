@@ -1,6 +1,6 @@
 local utils = require "eccis.libs.utils"
 local entity = require "eccis.entity"
-local eventManagerBuilder = require "eccis.eventManager"
+local eventManagerBuilder = require "eccis.libs.event-manager"
 
 local scene = {}
 

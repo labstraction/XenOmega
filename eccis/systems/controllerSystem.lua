@@ -1,6 +1,6 @@
 local utils = require "eccis.libs.utils"
 local entity = require "eccis.entity"
-local ball = require "eccis.componets.weapon.ball"
+local ball = require "eccis.componets.weapons.ball"
 
 local controllerSysBuilder = function(eventManager)
 
@@ -28,6 +28,7 @@ local controllerSysBuilder = function(eventManager)
         end,
         fire = function(entity, dt)
             local bullet = entity:new()
+            utils.log('stocazzo')
             bullet:add("graphic", ball.draw)
             bullet:add("position", { x = entity.body:getX(), y = entity.body:getY(), type = "dynamic" })
             bullet:add("collider", ball.collider)

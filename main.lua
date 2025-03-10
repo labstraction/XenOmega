@@ -12,6 +12,7 @@ local currentScene = 1
 function love.load()
     local firstScene = scene:new()
     local manager = firstScene:addSubscription("addEntity", function(entity)
+        utils.log("addEntity")
         firstScene:addEntity(entity)
     end)
     local player = firstScene:newEntity()

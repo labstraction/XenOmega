@@ -18,3 +18,8 @@ local stats = {
     speed = 1000
 }
 
+return {
+    draw = draw,
+    collider = collider,
+    stats = stats
+}
